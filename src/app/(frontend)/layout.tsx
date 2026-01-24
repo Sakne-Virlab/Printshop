@@ -1,0 +1,39 @@
+import React from 'react'
+import './styles.scss'
+import { Montserrat, Unbounded } from "next/font/google";
+
+import Header from './components/layout/Header/Header'
+import Footer from './components/layout/Footer/Footer'
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+export const metadata = {
+  description: 'A blank template using Payload in a Next.js app.',
+  title: 'Payload Blank Template',
+}
+
+export default async function RootLayout(props: { children: React.ReactNode }) {
+  const { children } = props
+
+  return (
+    <html lang="ru">
+      <body className={`${montserrat.variable} ${unbounded.variable}`}>
+        <Header/>
+        <main>{children}</main>
+        <Footer/>
+      </body>
+    </html>
+  )
+}

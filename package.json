@@ -9,10 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.1.4",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "sass": "^1.97.3"
+    "@payloadcms/db-mongodb": "^3.72.0",
+    "@payloadcms/next": "^3.72.0",
+    "@payloadcms/richtext-lexical": "^3.72.0",
+    "graphql": "^16.12.0",
+    "next": "^15.4.0",
+    "payload": "^3.72.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sass": "^1.97.3",
+    "swiper": "^12.0.3"
   },
   "devDependencies": {
     "@types/node": "^20",

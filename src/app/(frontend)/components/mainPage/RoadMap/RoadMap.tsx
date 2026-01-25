@@ -44,7 +44,6 @@ export default function RoadMap({ steps }: { steps: StepFromCMS[] }) {
         className={styles.mySwiper}
         spaceBetween={60}
         slidesPerView={1}
-        slidesPerGroup={1}
         speed={400}
         grabCursor={true}
         navigation={{
@@ -59,17 +58,7 @@ export default function RoadMap({ steps }: { steps: StepFromCMS[] }) {
           600: { slidesPerView: 1.3 },
           700: { slidesPerView: 1.6 },
           800: { slidesPerView: 2 },
-          900: { slidesPerView: 2.2 },
-          1000: { slidesPerView: 2.5 },
-          1100: { slidesPerView: 2.6 },
-          1200: { slidesPerView: 2.8 },
-          1300: { slidesPerView: 3 },
-          1400: { slidesPerView: 3.1 },
-          1500: { slidesPerView: 3.15 },
-          1600: { slidesPerView: 3.2 },
-          1700: { slidesPerView: 3.3 },
-          1800: { slidesPerView: 3.4 },
-          1920: { slidesPerView: 3.5 },
+          1300: { slidesPerView: 3},
         }}
       >
         {steps.map((card, idx) => (

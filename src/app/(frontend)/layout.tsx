@@ -1,6 +1,6 @@
 import React from 'react'
 import './styles.scss'
-import { Montserrat, Unbounded } from "next/font/google";
+import { Montserrat, Unbounded, Manrope } from "next/font/google";
 
 import Header from './components/layout/Header/Header'
 import Footer from './components/layout/Footer/Footer'
@@ -19,6 +19,13 @@ const unbounded = Unbounded({
   display: "swap",
 });
 
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
   title: 'Payload Blank Template',
@@ -29,7 +36,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="ru">
-      <body className={`${montserrat.variable} ${unbounded.variable}`}>
+      <body className={`${montserrat.variable} ${unbounded.variable} ${manrope.variable}`}>
         <Header/>
         <main>{children}</main>
         <Footer/>

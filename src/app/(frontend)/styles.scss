@@ -9,12 +9,16 @@
 // Экран    | 360px | 1920+px
 // ---------------- 
 // h1       | 32px | 90px
+// ---------------- 
+// h2       | 25px | 50px
 // ----------------
 // subtitle | 18px | 30px
 // ----------------
-// p1 | 16px | 22px
+// p1       | 16px | 22px
 // ----------------
-// p2 | 20px | 35px
+// p2      | 20px | 35px
+// ----------------
+// p3      | 14px | 16px
 
 
 
@@ -68,14 +72,10 @@ h1{
 }
 
 h2{
-  font-size: 38px ;
+  font-family: var(--font-unbounded);
+  font-size: clamp(1.5625rem, 1.2019rem + 1.6026vw, 3.125rem);
   font-weight: 500;
   margin-bottom: 20px;
-
-  @media (max-width:992px) {
-    font-size: 33px;
-  }
-
 }
 
 h3{

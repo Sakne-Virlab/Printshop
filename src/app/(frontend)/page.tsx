@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import Hero from "./components/mainPage/Hero/Hero"
 import RoadMap from './components/mainPage/RoadMap/RoadMap'
+import Products from './components/mainPage/Products/Products'
 
 export const revalidate = 60;
 export const dynamic = "force-dynamic";
@@ -18,11 +19,16 @@ export default async function Page() {
     slug: 'roadmap' as never,
     depth: 1,
   })
+  const products = await payload.findGlobal({
+    slug: "products" as never,
+    depth: 2,
+  });
 
   return (
     <main>
       <Hero hero={hero as any} />
       <RoadMap steps={(roadmap as any)?.steps ?? []}/>
+      <Products data={products as any} />
     </main>
   )
 }

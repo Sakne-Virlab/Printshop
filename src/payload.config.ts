@@ -11,6 +11,7 @@ import { Media } from "./collections/Media";
 import { HeroGlobal } from './globals/Hero'
 import { RoadMapGlobal } from './globals/RoadMap'
 import { ProductsGlobal } from "./globals/Products";
+import { AboutGlobal } from "./globals/About";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -26,6 +27,7 @@ export default buildConfig({
     HeroGlobal,
     RoadMapGlobal,
     ProductsGlobal,
+    AboutGlobal,
   ],
   collections: [Users, Media],
   editor: lexicalEditor(),

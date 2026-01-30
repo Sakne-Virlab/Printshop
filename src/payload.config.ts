@@ -12,6 +12,7 @@ import { HeroGlobal } from './globals/Hero'
 import { RoadMapGlobal } from './globals/RoadMap'
 import { ProductsGlobal } from "./globals/Products";
 import { AboutGlobal } from "./globals/About";
+import { ContactsGlobal } from "./globals/Contacts";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -28,6 +29,7 @@ export default buildConfig({
     RoadMapGlobal,
     ProductsGlobal,
     AboutGlobal,
+    ContactsGlobal,
   ],
   collections: [Users, Media],
   editor: lexicalEditor(),

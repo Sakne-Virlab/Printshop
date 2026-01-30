@@ -1,100 +1,126 @@
+.aboutSection {
+  margin: 40px 0;
+//   background-color: white;
+  padding: 40px 0;
 
-.aboutSection{
-    margin: 40px 0;
-    background-color: white;
-    padding: 40px 0;
+  @media (max-width: 600px) {
+    margin: 0;
+    padding: 0;
+  }
 }
 
-.aboutGrid{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+.aboutGrid {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 
-    p{
-        color: #696969;
-        font-size: clamp(0.9375rem, 0.8942rem + 0.1923vw, 1.125rem);
-    }
+  p {
+    color: #696969;
+    font-size: clamp(0.9375rem, 0.8942rem + 0.1923vw, 1.125rem);
+  }
 
-    @media (max-width:1300px) {
-        flex-direction: column;
-        gap: 40px;
-    }
-}
-
-.left{
-    width: calc(45% - 50px);
-    display: flex;
+  @media (max-width: 1300px) {
     flex-direction: column;
-    justify-content: space-between;
-
-    .leftBottom{
-        display: flex;
-        flex-direction: row;
-        // justify-content: space-between;
-        gap: 100px;
-
-        @media (max-width:600px) {
-            display: none;
-        }
-    }
-
-    @media (max-width:1300px) {
-        width: 100%;
-        .leftBottom .point{
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-    }
-}
-
-.right{
-    width: calc(55% - 50px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     gap: 40px;
-
-    @media (max-width:1300px) {
-        width: 100%;
-    }
-
-    .block{
-        display: flex;
-        flex-direction: row;
-        gap: 60px;
-        align-items: center !important;
-
-        @media (max-width:600px) {
-            gap: 20px;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .aboutIMG{
-            object-fit: cover;
-            width: 212px;
-            height: 189px;
-            border-radius: 12px; // если нужно
-            box-shadow: 0 8px 20px rgba(139, 146, 163, 0.15);
-        }
-        
-        .aboutText{
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-
-            h4{
-                margin: 0;
-            }
-        }
-    }
+  }
 }
 
-.aboutTitle{
-    font-family: var(--font-unbounded);
-    font-size: clamp(1.25rem, 1.0337rem + 0.9615vw, 2.1875rem);
-    font-weight: 600;
+.left {
+  width: calc(45% - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .leftBottom {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    width: 100%;
+
+    .leftBottom .point {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+}
+
+.right {
+  width: calc(55% - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+
+  @media (max-width: 1300px) {
+    width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    display: none; // ⬅️ прячем обычную right на мобилке
+  }
+}
+
+/* контейнер под swiper */
+.rightMobile {
+  width: calc(55% - 50px);
+
+  @media (max-width: 1300px) {
+    width: 100%;
+  }
+}
+
+/* общий block для desktop и swiper */
+.block {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  align-items: center;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    gap: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.aboutIMG {
+  object-fit: cover;
+  width: 212px;
+  height: 189px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(139, 146, 163, 0.15);
+}
+
+.aboutText {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.aboutTitle {
+  font-family: var(--font-unbounded);
+  font-size: clamp(1.25rem, 1.0337rem + 0.9615vw, 2.1875rem);
+  font-weight: 600;
+  color: #282D29;
+}
+
+/* делаем точки красивее именно в этом блоке (опционально) */
+.rightMobile :global(.swiper-pagination) {
+  position: static;
+  margin-top: 12px;
 }

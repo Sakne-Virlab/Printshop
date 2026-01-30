@@ -30,6 +30,10 @@ export default async function Page() {
     slug: "about" as never,
     depth: 2,
   });
+  const contacts = await payload.findGlobal({
+    slug: "contacts" as never,
+    depth: 2,
+  });
 
   return (
     <main>
@@ -38,7 +42,7 @@ export default async function Page() {
       <Products data={products as any} />
       <Calculator/>
       <About data={about as any}/>
-      <Contacts/>
+      <Contacts data={contacts as any} />
     </main>
   )
 }

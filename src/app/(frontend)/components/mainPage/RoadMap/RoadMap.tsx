@@ -55,7 +55,7 @@ export default function RoadMap({ steps }: { steps: StepFromCMS[] }) {
           0: { slidesPerView: 1 },
           360: { slidesPerView: 1 },
           480: { slidesPerView: 1 },
-          600: { slidesPerView: 1.3 },
+          600: { slidesPerView: 1 },
           700: { slidesPerView: 1.6 },
           800: { slidesPerView: 2 },
           1300: { slidesPerView: 3},

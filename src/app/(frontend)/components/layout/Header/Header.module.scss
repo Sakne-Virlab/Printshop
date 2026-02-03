@@ -1,0 +1,85 @@
+.Header {
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  font-size: clamp(0.9375rem, 0.8942rem + 0.1923vw, 1.125rem);
+  color: white;
+}
+
+.inner {
+  margin: 40px auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  display: inline-flex;
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  
+
+  a{
+        all: unset;
+        font-size: clamp(0.9375rem, 0.8654rem + 0.3205vw, 1.25rem);
+        cursor: pointer;
+        transition: transform .25s ease, box-shadow .25s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(1.02);
+        }
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  /* только чтобы выглядело как “пилюля” */
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.pillItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  a {
+    all: unset;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

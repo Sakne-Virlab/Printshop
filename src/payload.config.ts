@@ -13,6 +13,7 @@ import { RoadMapGlobal } from './globals/RoadMap'
 import { ProductsGlobal } from "./globals/Products";
 import { AboutGlobal } from "./globals/About";
 import { ContactsGlobal } from "./globals/Contacts";
+import { FooterGlobal } from "./globals/Footer";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -30,6 +31,7 @@ export default buildConfig({
     ProductsGlobal,
     AboutGlobal,
     ContactsGlobal,
+    FooterGlobal,
   ],
   collections: [Users, Media],
   editor: lexicalEditor(),

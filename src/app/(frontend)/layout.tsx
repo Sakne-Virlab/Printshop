@@ -1,6 +1,8 @@
 import React from 'react'
 import './styles.scss'
 import { Montserrat, Unbounded, Manrope } from "next/font/google";
+import { getPayload } from "payload";
+import config from "@/payload.config";
 
 import Header from './components/layout/Header/Header'
 import Footer from './components/layout/Footer/Footer'
@@ -34,12 +36,19 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
+  const payload = await getPayload({ config });
+
+  const footer = await payload.findGlobal({
+    slug: "footer" as never,
+    depth: 2,
+  });
+
   return (
     <html lang="ru">
       <body className={`${montserrat.variable} ${unbounded.variable} ${manrope.variable}`}>
         <Header/>
         <main>{children}</main>
-        <Footer/>
+        <Footer data={footer as any} />
       </body>
     </html>
   )

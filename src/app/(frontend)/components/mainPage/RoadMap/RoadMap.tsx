@@ -38,7 +38,7 @@ export const SliderCard = ({ step, title, points }: SliderCardProps) => {
 
 export default function RoadMap({ steps }: { steps: StepFromCMS[] }) {
   return (
-    <section className={styles.sliderContainer}>
+    <section className={styles.sliderContainer} id="RoadMap">
       <Swiper
         modules={[Navigation, Pagination]}
         className={styles.mySwiper}

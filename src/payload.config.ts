@@ -14,6 +14,7 @@ import { ProductsGlobal } from "./globals/Products";
 import { AboutGlobal } from "./globals/About";
 import { ContactsGlobal } from "./globals/Contacts";
 import { FooterGlobal } from "./globals/Footer";
+import { HeaderGlobal } from "./globals/Header";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -26,12 +27,15 @@ export default buildConfig({
     },
   },
   globals: [
+    HeaderGlobal,
+    FooterGlobal,
     HeroGlobal,
     RoadMapGlobal,
     ProductsGlobal,
     AboutGlobal,
     ContactsGlobal,
-    FooterGlobal,
+    
+    
   ],
   collections: [Users, Media],
   editor: lexicalEditor(),

@@ -1,20 +1,61 @@
 .Header {
-
-  position: absolute;
+  position: fixed;   // ✅ всегда fixed — нет прыжка
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 50;
+
+  color: #fff;
   font-size: clamp(0.9375rem, 0.8942rem + 0.1923vw, 1.125rem);
-  color: white;
+
+  background: transparent;
+  padding: 25px 0;
+
+  transition: background .25s ease, padding .25s ease, transform 320ms cubic-bezier(.2,.8,.2,1);
+  will-change: background, padding, transform;
+
+  @media (max-width: 992px) {
+    padding: 14px 0;
+    
+  }
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+.scrolled {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 .inner {
-  margin: 40px auto !important;
+  margin: 0 auto !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  
+
+  // @media (max-width: 1800px) {
+  //   flex-direction: column;
+  // }
 }
+
+.sides{
+  margin: 0 auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  @media (max-width: 1540px) {
+    margin-left: 0 !important;
+    flex-direction: column;
+  }
+}
+
 
 .left {
   display: flex;
@@ -24,6 +65,18 @@
 
 .logo {
   display: inline-flex;
+  
+
+  .logoSVG {
+    width: 115px ;
+    height: 115px ;
+     @media (max-width: 992px) {
+      width: 100px ;
+      height: 100px ;
+    }
+  }
+
+ 
 }
 
 .nav {
@@ -34,6 +87,7 @@
 
   a{
         all: unset;
+        position: relative;
         font-size: clamp(0.9375rem, 0.8654rem + 0.3205vw, 1.25rem);
         cursor: pointer;
         transition: transform .25s ease, box-shadow .25s ease;
@@ -46,9 +100,23 @@
             transform: scale(1.02);
         }
   }
+
+  a::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 -8px 0;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transition: transform .2s ease;
+  }
+  a:hover::before {
+    transform: scaleX(1);
+  }
 }
 
 .right {
+  height: 42px;
   display: flex;
   align-items: center;
 }
@@ -58,28 +126,200 @@
   align-items: center;
   gap: 14px;
 
+  height: 30px;
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: 10px;
 
   /* только чтобы выглядело как “пилюля” */
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid #F0F0F0;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .pillItem {
+  all: unset;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .25s ease, box-shadow .25s ease;
+
+  &:hover {
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(1.02);
+    }
+
+}
+
+
+
+.burger {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.10);
+  cursor: pointer;
+
+  /* важно */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  /* убрать дефолтные стили кнопки */
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.burger span {
+  display: block;
+  width: 22px;     /* ← без этого полоски могут быть “0” визуально */
+  height: 2px;
+  background: #fff;
+  border-radius: 999px;
+}
+
+@media (min-width: 993px) {
+  .burger { display: none; }
+}
+
+/* full screen overlay */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+
+  width: 100vw;     // ✅ весь экран
+  height: 100vh;    // ✅ весь экран
+  min-height: 100svh; // ✅ iOS fix
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity .18s ease, visibility 0s linear .18s;
+
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+
+.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transition: opacity .18s ease;
+}
+
+/* меню на весь экран */
+.mobileMenu {
+  position: absolute;
+  inset: 0;
+  padding: 14px 2.5%;
+  display: flex;
+  flex-direction: column; 
+
+}
+
+.mobileTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobileContent {
+  margin-top: 24px;
+
+  transform: translateY(-12px);
+  opacity: 0;
+
+  transition: transform .28s cubic-bezier(.2,.8,.2,1),
+              opacity .18s ease;
+  will-change: transform, opacity;
+}
+
+.menuOpen {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.open .mobileContent  {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobileTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobileLogo {
+  display: inline-flex;
+}
+
+.closeBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.mobileNav {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
   a {
     all: unset;
     cursor: pointer;
-    white-space: nowrap;
+    color: #fff;
+    font-size: clamp(1rem, 0.9135rem + 0.3846vw, 1.375rem);
+    font-weight: 600;
   }
 }
 
-.socialLink {
+.mobileContacts {
+  margin-top: 50px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+
+  display: grid;
+  gap: 10px;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.mobileSocials {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+/* breakpoint 992px */
+@media (max-width: 992px) {
+  .nav { display: none; }
+  .pill { display: none; }
+
+  .burger { display: inline-flex; align-items: center; justify-content: center; }
+
+  /* чтобы блоки не занимали место */
+  .sides { margin-left: auto !important; }
 }

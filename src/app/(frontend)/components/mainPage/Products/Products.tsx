@@ -36,7 +36,7 @@ export const Card = ({ category, bgUrl, url }: {
 
 export default function Products({ data }: { data: ProductsData }) {
   return (
-    <section className={`container ${styles.ProductsSection}`}>
+    <section className={`container ${styles.ProductsSection}`} id="Products">
       <div className={styles.productsHeader}>
         <h2>{data.title}</h2>
         <p>{data.description}</p>

@@ -117,7 +117,7 @@ export default function Calculator(){
     if (product == "catalogs"){consProduct = "каталогов"}
 
     return(
-        <section className={styles.CalculatorSection}>
+        <section className={styles.CalculatorSection} id="Calculator">
             <div className="container" style={{margin: "0 auto"}}>
                 <h2>Расчитайте стоимость работы</h2>
                 <p className={styles.ctaTitle}>Выберите основные параметры</p>

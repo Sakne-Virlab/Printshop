@@ -50,7 +50,7 @@ export default function About({ data }: { data: AboutData }) {
   const isMobile = useIsMobile(600);
 
   return (
-    <section className={styles.aboutSection}>
+    <section className={styles.aboutSection} id="About">
       <div className="container" style={{ margin: "0 auto 40px" }}>
         <div className={styles.aboutGrid}>
           <div className={styles.left}>

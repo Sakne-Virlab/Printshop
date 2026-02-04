@@ -19,6 +19,8 @@
         &:active {
             transform: scale(1.02);
         }
+
+        
     }
 
     .leftSide{
@@ -69,6 +71,19 @@
 
             @media (max-width:1125px) {
                 flex-direction: column;
+            }
+
+            a::before {
+                content: "";
+                position: absolute;
+                inset: auto 0 -8px 0;
+                height: 2px;
+                background: currentColor;
+                transform: scaleX(0);
+                transition: transform .2s ease;
+            }
+            a:hover::before {
+                transform: scaleX(1);
             }
         }
 

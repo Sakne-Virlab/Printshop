@@ -79,7 +79,7 @@ export default function Contacts({ data }: { data: ContactsData }) {
   const socials = Array.isArray(data?.socials) ? data.socials : []
 
   return (
-    <section className={styles.contactsSection}>
+    <section className={styles.contactsSection} id="Contacts">
       <div ref={mapRef} className={styles.map} />
 
       <div className={styles.contactsBlock}>

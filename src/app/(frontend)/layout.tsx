@@ -43,10 +43,15 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     depth: 2,
   });
 
+  const header = await payload.findGlobal({
+    slug: "header" as never,
+    depth: 2, // чтобы icon.url и logo.url раскрылись
+  });
+
   return (
     <html lang="ru">
       <body className={`${montserrat.variable} ${unbounded.variable} ${manrope.variable}`}>
-        <Header/>
+        <Header data={header as any} />
         <main>{children}</main>
         <Footer data={footer as any} />
       </body>

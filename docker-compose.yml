@@ -5,30 +5,43 @@ services:
     container_name: printshop_app
     build:
       context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "3002:3002"
     env_file:
       - .env
     environment:
-      # Явно пробрасываем URI, чтобы Docker соединил приложение с контейнером mongo
-      - MONGODB_URI=${MONGODB_URI}
+      - DATABASE_URL=mongodb://mongo:27017/printshop
       - PAYLOAD_SECRET=${PAYLOAD_SECRET}
+      - NODE_ENV=production
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
+    volumes:
+      - ./media:/app/media
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3002/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   mongo:
     image: mongo:latest
     container_name: printshop_mongo
     restart: always
-    # Если в .env есть доступы для БД, пропишите их и тут:
-    # environment:
-    #   - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
-    #   - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"  # Только локальный доступ для безопасности
     volumes:
       - printshop_mongo_data:/data/db
+      - ./mongo-backup:/backup
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/printshop --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
 volumes:
   printshop_mongo_data:

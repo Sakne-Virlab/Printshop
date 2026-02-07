@@ -3,6 +3,9 @@ import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* Режим standalone для Docker */
+  output: 'standalone',
+  
   /* Базовая конфигурация Next.js */
   reactStrictMode: true,
   
@@ -16,7 +19,16 @@ const nextConfig: NextConfig = {
   
   /* Оптимизация изображений */
   images: {
-    domains: ['localhost'], // добавьте ваши домены
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+    ],
   },
   
   /* Экспериментальные фичи (опционально) */

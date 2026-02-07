@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Printshop
 
-## Getting Started
+Веб-приложение для типографии на базе Next.js 15 и Payload CMS.
 
-First, run the development server:
+## 🛠️ Технологии
+
+- **Next.js 15** - React фреймворк
+- **Payload CMS 3.72** - Headless CMS
+- **MongoDB** - База данных
+- **Docker** - Контейнеризация
+- **Nginx** - Reverse proxy
+
+## 🚀 Быстрый старт (разработка)
+
+### Требования
+
+- Node.js 20+
+- MongoDB (локально или Docker)
+
+### Установка
 
 ```bash
+# Установка зависимостей
+npm install
+
+# Создание .env файла
+cp env.example .env
+# Отредактируйте .env и укажите DATABASE_URL и PAYLOAD_SECRET
+
+# Запуск в режиме разработки
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Приложение будет доступно на [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Админ-панель Payload CMS: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Развертывание на сервере
 
-## Learn More
+Подробная инструкция по развертыванию находится в файле [DEPLOY.md](./DEPLOY.md)
 
-To learn more about Next.js, take a look at the following resources:
+### Краткая инструкция:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Установите Docker и Docker Compose на сервере
+2. Скопируйте проект на сервер
+3. Создайте `.env` файл на основе `env.example`
+4. Запустите: `docker-compose up -d --build`
+5. Настройте Nginx (см. `nginx.conf`)
+6. Настройте SSL сертификат
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📝 Скрипты
 
-## Deploy on Vercel
+- `npm run dev` - Запуск в режиме разработки
+- `npm run build` - Сборка для production
+- `npm run start` - Запуск production версии
+- `npm run lint` - Проверка кода линтером
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📚 Документация
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Инструкция по развертыванию](./DEPLOY.md)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Payload CMS Documentation](https://payloadcms.com/docs)

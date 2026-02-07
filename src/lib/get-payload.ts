@@ -1,13 +1,25 @@
 import { getPayload as getPayloadClient } from 'payload'
 import config from '@/payload.config'
 
+// Кэш экземпляра Payload для переиспользования
+let payloadInstance: Awaited<ReturnType<typeof getPayloadClient>> | null = null
+
 /**
  * Получение экземпляра Payload для серверных компонентов Next.js
- * Для публичных страниц (без аутентификации) достаточно передать только config
+ * Использует кэшированный экземпляр для оптимизации
+ * Для публичных страниц (без аутентификации) не требуется контекст запроса
  */
 export async function getPayload() {
-  return getPayloadClient({
+  // Если экземпляр уже создан, возвращаем его
+  if (payloadInstance) {
+    return payloadInstance
+  }
+
+  // Создаем новый экземпляр без контекста запроса (для публичных страниц)
+  payloadInstance = await getPayloadClient({
     config,
   })
+
+  return payloadInstance
 }
 

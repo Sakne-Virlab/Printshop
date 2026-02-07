@@ -23,3 +23,18 @@ export async function getPayload() {
   return payloadInstance
 }
 
+/**
+ * Сериализация данных для передачи на клиент
+ * Убирает несериализуемые свойства (функции, классы и т.д.)
+ * Это предотвращает ошибки при гидратации React на клиенте
+ */
+export function serializePayloadData<T>(data: T): T {
+  try {
+    return JSON.parse(JSON.stringify(data))
+  } catch (error) {
+    console.error('Ошибка сериализации данных Payload:', error)
+    // Возвращаем данные как есть, если сериализация не удалась
+    return data
+  }
+}
+

@@ -1,4 +1,4 @@
-import { getPayload } from '@/lib/get-payload'
+import { getPayload, serializePayloadData } from '@/lib/get-payload'
 import Hero from "./components/mainPage/Hero/Hero"
 import RoadMap from './components/mainPage/RoadMap/RoadMap'
 import Products from './components/mainPage/Products/Products'
@@ -34,14 +34,22 @@ export default async function Page() {
     depth: 2,
   });
 
+  // Сериализуем данные для безопасной передачи на клиент
+  // Это предотвращает ошибки с несериализуемыми объектами (auth, функции и т.д.)
+  const serializedHero = serializePayloadData(hero);
+  const serializedRoadmap = serializePayloadData(roadmap);
+  const serializedProducts = serializePayloadData(products);
+  const serializedAbout = serializePayloadData(about);
+  const serializedContacts = serializePayloadData(contacts);
+
   return (
     <main>
-      <Hero hero={hero as any} />
-      <RoadMap steps={(roadmap as any)?.steps ?? []}/>
-      <Products data={products as any} />
+      <Hero hero={serializedHero as any} />
+      <RoadMap steps={(serializedRoadmap as any)?.steps ?? []}/>
+      <Products data={serializedProducts as any} />
       <Calculator/>
-      <About data={about as any}/>
-      <Contacts data={contacts as any} />
+      <About data={serializedAbout as any}/>
+      <Contacts data={serializedContacts as any} />
     </main>
   )
 }

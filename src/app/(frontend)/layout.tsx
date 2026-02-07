@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles.scss'
 import { Montserrat, Unbounded, Manrope } from "next/font/google";
-import { getPayload } from "@/lib/get-payload";
+import { getPayload, serializePayloadData } from "@/lib/get-payload";
 
 import Header from './components/layout/Header/Header'
 import Footer from './components/layout/Footer/Footer'
@@ -47,12 +47,17 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     depth: 2, // чтобы icon.url и logo.url раскрылись
   });
 
+  // Сериализуем данные для безопасной передачи на клиент
+  // Это предотвращает ошибки с несериализуемыми объектами (auth, функции и т.д.)
+  const serializedHeader = serializePayloadData(header);
+  const serializedFooter = serializePayloadData(footer);
+
   return (
     <html lang="ru">
       <body className={`${montserrat.variable} ${unbounded.variable} ${manrope.variable}`}>
-        <Header data={header as any} />
+        <Header data={serializedHeader as any} />
         <main>{children}</main>
-        <Footer data={footer as any} />
+        <Footer data={serializedFooter as any} />
       </body>
     </html>
   )

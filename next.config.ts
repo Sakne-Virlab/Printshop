@@ -42,6 +42,21 @@ const nextConfig: NextConfig = {
     //   }
     // }
   },
+  
+  /* Webpack конфигурация для исключения Payload из клиентского бандла */
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Исключаем серверные модули из клиентского бандла
+      config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+      crypto: false,
+    };
+    }
+    return config;
+  },
 };
 
 // ТОЛЬКО ОДИН вызов withPayload!

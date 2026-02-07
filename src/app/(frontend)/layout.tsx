@@ -1,8 +1,7 @@
 import React from 'react'
 import './styles.scss'
 import { Montserrat, Unbounded, Manrope } from "next/font/google";
-import { getPayload } from "payload";
-import config from "@/payload.config";
+import { getPayload } from "@/lib/get-payload";
 
 import Header from './components/layout/Header/Header'
 import Footer from './components/layout/Footer/Footer'
@@ -36,7 +35,7 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
-  const payload = await getPayload({ config });
+  const payload = await getPayload();
 
   const footer = await payload.findGlobal({
     slug: "footer" as never,

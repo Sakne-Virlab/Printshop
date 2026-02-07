@@ -1,5 +1,4 @@
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayload } from '@/lib/get-payload'
 import Hero from "./components/mainPage/Hero/Hero"
 import RoadMap from './components/mainPage/RoadMap/RoadMap'
 import Products from './components/mainPage/Products/Products'
@@ -11,7 +10,7 @@ export const revalidate = 60;
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  const payload = await getPayload({ config })
+  const payload = await getPayload()
   
 
   const hero = await payload.findGlobal({

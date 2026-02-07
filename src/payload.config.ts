@@ -40,6 +40,8 @@ export default buildConfig({
   collections: [Users, Media],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
+  // Локальный API для серверных компонентов без контекста запроса
+  local: true,
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },

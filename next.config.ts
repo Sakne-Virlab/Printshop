@@ -44,16 +44,35 @@ const nextConfig: NextConfig = {
   },
   
   /* Webpack конфигурация для исключения Payload из клиентского бандла */
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, webpack }) => {
     if (!isServer) {
       // Исключаем серверные модули из клиентского бандла
       config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      net: false,
-      tls: false,
-      crypto: false,
-    };
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+        path: false,
+        os: false,
+      };
+      
+      // Исключаем Payload из клиентского бандла
+      config.externals = config.externals || [];
+      config.externals.push({
+        'payload': 'commonjs payload',
+        '@payloadcms/next': 'commonjs @payloadcms/next',
+        '@payloadcms/db-mongodb': 'commonjs @payloadcms/db-mongodb',
+      });
+      
+      // Игнорируем импорты Payload на клиенте
+      config.plugins = config.plugins || [];
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /^payload$/,
+          contextRegExp: /src\/lib\/get-payload/,
+        })
+      );
     }
     return config;
   },

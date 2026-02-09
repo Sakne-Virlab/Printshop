@@ -7,11 +7,19 @@ export const FooterGlobal: GlobalConfig = {
 
   fields: [
     // 🔹 Логотип
+    // {
+    //   name: "logo",
+    //   label: "Логотип",
+    //   type: "upload",
+    //   relationTo: "media",
+    //   required: true,
+    // },
+
+    //🔹 Title
     {
-      name: "logo",
-      label: "Логотип",
-      type: "upload",
-      relationTo: "media",
+      name: "site",
+      label: "Название сайта",
+      type: "textarea",
       required: true,
     },
 

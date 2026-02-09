@@ -8,6 +8,7 @@ import sharp from "sharp";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 
+import { SEOGlobal } from './globals/SEO'
 import { HeroGlobal } from './globals/Hero'
 import { RoadMapGlobal } from './globals/RoadMap'
 import { ProductsGlobal } from "./globals/Products";
@@ -27,6 +28,7 @@ export default buildConfig({
     },
   },
   globals: [
+    SEOGlobal,
     HeaderGlobal,
     FooterGlobal,
     HeroGlobal,

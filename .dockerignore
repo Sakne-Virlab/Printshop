@@ -1,23 +1,93 @@
+# ========== СИСТЕМНЫЕ ФАЙЛЫ ==========
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ========== ЛОГИ И ВРЕМЕННЫЕ ФАЙЛЫ ==========
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+*.pid
+*.seed
+*.pid.lock
+
+# ========== ДИРЕКТОРИИ СБОРКИ И ЗАВИСИМОСТЕЙ ==========
 node_modules
 .next
+dist
+build
+out
+.nuxt
+.cache
+.yarn/cache
+.pnpm-store
+coverage
+.nyc_output
+
+# ========== КЭШИ ==========
+.next/cache
+.npm
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarn/unplugged
+.pnp.*
+.turbo
+
+# ========== GIT ==========
 .git
 .gitignore
-.env
+.gitattributes
+.github
+
+# ========== ENVIRONMENT ==========
+.env*
 .env.local
-.env.production
 .env.development
-npm-debug.log
-yarn-error.log
+.env.production
+.env.test
+.env.staging
+
+# ========== ДОКУМЕНТАЦИЯ ==========
+*.md
 README.md
 DEPLOY.md
-*.md
-.DS_Store
-coverage
+CHANGELOG.md
+LICENSE
+
+# ========== IDE и РЕДАКТОРЫ ==========
 .vscode
 .idea
-*.log
-mongo-backup
-docker-compose.yml
+*.swp
+*.swo
+.project
+.classpath
+.settings
+
+# ========== DOCKER ==========
+docker-compose*
 Dockerfile
 .dockerignore
+.docker
 
+# ========== ПРОЕКТНЫЕ ПАПКИ ==========
+mongo-backup
+media/uploads  # если используете volume
+uploads
+
+# ========== ТЕСТЫ ==========
+__tests__
+__mocks__
+*.spec.js
+*.spec.ts
+*.test.js
+*.test.ts
+jest.config.js
+cypress
+
+# ========== ДРУГОЕ ==========
+*.zip
+*.tar.gz
+*.rar

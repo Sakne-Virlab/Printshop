@@ -38,7 +38,7 @@ export default function Products({ data }: { data: ProductsData }) {
   return (
     <section className={`container ${styles.ProductsSection}`} id="Products">
       <div className={styles.productsHeader}>
-        <h2>{data.title}</h2>
+        <h2>{data.title ? data.title : "title"}</h2>
         <p>{data.description}</p>
 
         <a href={data.button.url} className={styles.glassButton}>
@@ -46,13 +46,13 @@ export default function Products({ data }: { data: ProductsData }) {
         </a>
       </div>
 
-      {data.cards.map((card, i) => (
-        <Card
-          key={i}
-          category={card.category}
-          url={card.url}
-          bgUrl={card.background?.url}
-        />
+      {data.cards.slice(0, 6).map((card, i) => (
+          <Card
+            key={i}
+            category={card.category}
+            url={card.url}
+            bgUrl={card.background?.url}
+          />
       ))}
     </section>
   );

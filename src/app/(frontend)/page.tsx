@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: home?.title ?? undefined,
       description: home?.description ?? undefined,
-      images: ogUrl ? [{ url: ogUrl }] : undefined,
+      images: ogUrl ? [{ url: `http://${process.env.URL}${ogUrl}` }] : undefined,
     },
   }
 }

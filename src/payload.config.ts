@@ -17,6 +17,7 @@ import { ContactsGlobal } from "./globals/Contacts";
 import { FooterGlobal } from "./globals/Footer";
 import { HeaderGlobal } from "./globals/Header";
 
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -28,6 +29,7 @@ export default buildConfig({
     },
   },
   globals: [
+
     SEOGlobal,
     HeaderGlobal,
     FooterGlobal,
@@ -36,7 +38,6 @@ export default buildConfig({
     ProductsGlobal,
     AboutGlobal,
     ContactsGlobal,
-    
     
   ],
   collections: [Users, Media],

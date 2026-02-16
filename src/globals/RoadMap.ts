@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const RoadMapGlobal: GlobalConfig = {
   slug: 'roadmap',
+  admin: { group: 'MainPage' },
   label: 'RoadMap',
   access: { read: () => true },
 

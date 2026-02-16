@@ -53,5 +53,27 @@ export const SEOGlobal: GlobalConfig = {
         },
       ],
     },
+    {
+      name: 'catalog',
+      label: 'Каталог',
+      type: 'group',
+      fields: [
+        { name: 'title', type: 'text', required: true },
+        { name: 'description', type: 'textarea' },
+        { name: 'keywords', type: 'text' },
+        {
+          name: 'ogImage',
+          label: 'OG изображение',
+          type: 'upload',
+          relationTo: 'media',
+        },
+        {
+          name: 'noIndex',
+          label: 'Не индексировать',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+      ],
+    },
   ],
 }

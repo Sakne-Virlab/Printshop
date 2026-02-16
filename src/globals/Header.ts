@@ -2,6 +2,7 @@ import type { GlobalConfig } from "payload";
 
 export const HeaderGlobal: GlobalConfig = {
   slug: "header",
+  admin: { group: 'Layout' },
   label: "Header",
   access: { read: () => true },
 

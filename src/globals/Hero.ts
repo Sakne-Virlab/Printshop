@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const HeroGlobal: GlobalConfig = {
   slug: 'hero',
+  admin: { group: 'MainPage' },
 
   hooks: {
     afterChange: [

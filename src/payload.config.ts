@@ -8,6 +8,7 @@ import sharp from "sharp";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 
+import { SEOGlobal } from './globals/SEO'
 import { HeroGlobal } from './globals/Hero'
 import { RoadMapGlobal } from './globals/RoadMap'
 import { ProductsGlobal } from "./globals/Products";
@@ -15,6 +16,7 @@ import { AboutGlobal } from "./globals/About";
 import { ContactsGlobal } from "./globals/Contacts";
 import { FooterGlobal } from "./globals/Footer";
 import { HeaderGlobal } from "./globals/Header";
+
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -27,6 +29,8 @@ export default buildConfig({
     },
   },
   globals: [
+
+    SEOGlobal,
     HeaderGlobal,
     FooterGlobal,
     HeroGlobal,
@@ -34,7 +38,6 @@ export default buildConfig({
     ProductsGlobal,
     AboutGlobal,
     ContactsGlobal,
-    
     
   ],
   collections: [Users, Media],

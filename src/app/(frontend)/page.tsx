@@ -1,4 +1,5 @@
 import { getPayload, serializePayloadData } from '@/lib/get-payload'
+import type { Metadata } from 'next'
 import Hero from "./components/mainPage/Hero/Hero"
 import RoadMap from './components/mainPage/RoadMap/RoadMap'
 import Products from './components/mainPage/Products/Products'
@@ -6,8 +7,37 @@ import Calculator from './components/mainPage/Calculator/Calculator'
 import About from './components/mainPage/About/About'
 import Contacts from './components/mainPage/Contacts/Contacts'
 
+
 export const revalidate = 60;
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload()
+
+  const seo = await payload.findGlobal({
+    slug: 'seo' as never,
+    depth: 2,
+  })
+
+  const home = (seo as any).home
+
+  const ogUrl =
+    home?.ogImage && typeof home.ogImage === 'object'
+      ? home.ogImage.url
+      : undefined
+
+  return {
+    title: home?.title ?? 'Главная',
+    description: home?.description ?? '',
+    keywords: home?.keywords ? home.keywords.split(',').map((s: string) => s.trim()) : undefined,
+    robots: home?.noIndex ? { index: false, follow: false } : undefined,
+    openGraph: {
+      title: home?.title ?? undefined,
+      description: home?.description ?? undefined,
+      images: ogUrl ? [{ url: `http://${process.env.URL}${ogUrl}` }] : undefined,
+    },
+  }
+}
 
 export default async function Page() {
   const payload = await getPayload()

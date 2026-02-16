@@ -26,13 +26,20 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   mongo:
     image: mongo:latest
     container_name: printshop_mongo
     restart: always
     ports:
-      - "127.0.0.1:27017:27017"  # Только локальный доступ для безопасности
+      - "127.0.0.1:27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=printshop
     volumes:
       - printshop_mongo_data:/data/db
       - ./mongo-backup:/backup
@@ -42,6 +49,11 @@ services:
       timeout: 5s
       retries: 5
       start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   printshop_mongo_data:

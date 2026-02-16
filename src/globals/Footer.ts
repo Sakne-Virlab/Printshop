@@ -2,16 +2,25 @@ import type { GlobalConfig } from "payload";
 
 export const FooterGlobal: GlobalConfig = {
   slug: "footer",
+  admin: { group: 'Layout' },
   label: "Footer",
   access: { read: () => true },
 
   fields: [
     // 🔹 Логотип
+    // {
+    //   name: "logo",
+    //   label: "Логотип",
+    //   type: "upload",
+    //   relationTo: "media",
+    //   required: true,
+    // },
+
+    //🔹 Title
     {
-      name: "logo",
-      label: "Логотип",
-      type: "upload",
-      relationTo: "media",
+      name: "site",
+      label: "Название сайта",
+      type: "textarea",
       required: true,
     },
 

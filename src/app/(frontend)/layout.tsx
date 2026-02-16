@@ -2,6 +2,7 @@ import React from 'react'
 import './styles.scss'
 import { Montserrat, Unbounded, Manrope } from "next/font/google";
 import { getPayload, serializePayloadData } from "@/lib/get-payload";
+import type { Metadata } from 'next'
 
 import Header from './components/layout/Header/Header'
 import Footer from './components/layout/Footer/Footer'
@@ -27,15 +28,34 @@ const manrope = Manrope({
   display: "swap",
 });
 
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload()
+
+  const seo = await payload.findGlobal({
+    slug: "seo" as never,
+    depth: 2,
+  })
+
+  const layout = (seo as any)?.layout
+
+  const google = layout?.verification?.google || undefined
+  const yandex = layout?.verification?.yandex || undefined
+
+  return {
+    title: "Payload Blank Template",
+    description: "A blank template using Payload in a Next.js app.",
+
+    verification: { google, yandex },
+
+    icons:{ icon: [{ url: "/api/media/file/favicon.svg", type: "image/svg+xml" }],}
+  }
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   const payload = await getPayload();
+
 
   const footer = await payload.findGlobal({
     slug: "footer" as never,

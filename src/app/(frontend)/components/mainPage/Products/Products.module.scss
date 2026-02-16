@@ -6,13 +6,16 @@
     position: relative;
     display: flex;
     padding: 20px;
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.4s ease;
+
+    @media (max-width: 500px) {
+        height: 200px;
+    }
 
     &:hover{
         transition: all 0.4s ease;

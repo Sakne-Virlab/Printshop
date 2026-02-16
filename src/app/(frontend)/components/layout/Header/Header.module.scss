@@ -18,6 +18,9 @@
     padding: 14px 0;
     
   }
+  @media (max-width: 500px) {
+    padding: 10px 0;
+  }
 }
 
 .hidden {
@@ -73,6 +76,10 @@
      @media (max-width: 992px) {
       width: 100px ;
       height: 100px ;
+    }
+    @media (max-width: 500px) {
+      width: 80px ;
+      height: 80px ;
     }
   }
 
@@ -223,9 +230,12 @@
 .mobileMenu {
   position: absolute;
   inset: 0;
-  padding: 14px 2.5%;
+  padding: 14px 4.5%;
   display: flex;
   flex-direction: column; 
+  @media (max-width: 500px) {
+      padding: 10px 4.5%;
+    }
 
 }
 

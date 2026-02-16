@@ -8,7 +8,8 @@
 
   @media (max-width:530px) {
     align-items: end;
-    padding: 2.5% 0;
+    padding: 4.5% 0 0;
+    align-items: end;
   }
   
 
@@ -50,7 +51,7 @@
 
   @media (max-width:1510px) {
     
-    margin: 0 2.5%;
+    margin: 0 4.5%;
   }
   @media (max-width:900px) {
     margin: 0 auto;
@@ -63,6 +64,8 @@
   }
   @media (max-width:530px) {
     width: 100%;
+    border-radidus-bottom-left-radius: 0;
+    border-radius-bottom-right-radius: 0 !important;
   }
   @media (max-width:450px) {
     width: 100%;

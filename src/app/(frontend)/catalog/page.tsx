@@ -12,6 +12,12 @@ interface ProductCard {
   background?: { url?: string };
 }
 
+type HeroData = {
+  title?: string;
+  subtitle?: { line: string }[];
+  backgroundImage?: { url?: string } | string | null;
+};
+
 interface ProductsData {
   title: string;
   description: string;
@@ -80,6 +86,13 @@ const contacts = await payload.findGlobal({
 
 const serializedContacts = serializePayloadData(contacts);
 
+function getMediaUrl(maybe: any): string | undefined {
+  // Payload может вернуть либо объект { url }, либо id (если depth маленький)
+  if (!maybe) return undefined;
+  if (typeof maybe === "string") return undefined;
+  return maybe.url;
+}
+
 export default async function CatalogPage() {
 
     const payload = await getPayload()
@@ -88,15 +101,18 @@ export default async function CatalogPage() {
         depth: 2,
     })) as unknown as ProductsData;
 
-    const title = "Каталог продукции";
-    const lines = [
-        { line: "Поможем подобрать продукцию под ваше мероприятие" },
-        { line: "Быстро. Качественно. Недорого" },
-    ];
+    const HeroContent = (await payload.findGlobal({
+        slug: "cataloghead" as never,
+        depth: 2,
+    })) as unknown as HeroData;
+
+    const title = HeroContent?.title ?? "Каталог продукции";
+    const lines = Array.isArray(HeroContent?.subtitle) ? HeroContent.subtitle : [];
+    const bgUrl = getMediaUrl(HeroContent?.backgroundImage);
 
   return (
     <div>
-      <div className={styles.head} style={{ backgroundImage: `url(/about1.jpg)` }}>
+      <div className={styles.head} style={{ backgroundImage: `url(${bgUrl})` }}>
         <div className={styles.headContent}>
             <h1>{title.split("|").map((line, i) => (
                 <span key={i}>

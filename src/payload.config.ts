@@ -7,6 +7,7 @@ import sharp from "sharp";
 
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
+import { Pages } from "./collections/Pages";
 
 import { SEOGlobal } from './globals/SEO'
 import { HeroGlobal } from './globals/Hero'
@@ -16,6 +17,8 @@ import { AboutGlobal } from "./globals/About";
 import { ContactsGlobal } from "./globals/Contacts";
 import { FooterGlobal } from "./globals/Footer";
 import { HeaderGlobal } from "./globals/Header";
+
+import { CatalogHeadGlobal } from "./globals/CatalogHead";
 
 
 const filename = fileURLToPath(import.meta.url);
@@ -38,9 +41,10 @@ export default buildConfig({
     ProductsGlobal,
     AboutGlobal,
     ContactsGlobal,
+    CatalogHeadGlobal,
     
   ],
-  collections: [Users, Media],
+  collections: [Users, Media, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
@@ -51,4 +55,7 @@ export default buildConfig({
   }),
   sharp,
   plugins: [],
+
 });
+
+

@@ -1,0 +1,101 @@
+.rashir{
+    max-width: 1510px;
+    padding: 0 20px;
+    margin: 40px auto;
+}
+
+.sliderContainer{
+  margin: 40px 0;
+  
+  
+  @media (max-width: 1230px){
+    margin: 50px 0;
+  }
+  @media (max-width: 992px) {
+    margin: 0px auto;
+  }
+}
+
+.sliderCard{
+    min-height: 150px;
+    min-width: 300px;
+
+    @media (max-width:1530px) {
+        min-width: 100px;
+        min-height: 220px;
+    }
+
+    @media (max-width:992px) {
+        min-width: 100px;
+        min-height: 180px;
+    }
+
+    @media (max-width:380px) {
+        min-width: 100px;
+        min-height: 180px;
+    }
+
+    position: relative;
+
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    padding: 30px;
+
+    .stepNum{
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        color: #ECECEC;
+        font-weight: 700;
+        font-size: 80px;
+        line-height:normal;
+    }
+
+    .stepTitle{
+        margin-top: 20px;
+        position: relative;
+        z-index: 2;
+        font-family: var(--font-unbounded);
+        font-weight: 500;
+        font-size: clamp(0.9375rem, 0.8077rem + 0.5769vw, 1.5rem);
+        line-height: 124%;
+        margin-bottom: 10px;
+    }
+
+    .stars{
+      display: flex;
+      gap: 3px;
+    }
+
+    .review{
+      margin-top: 10px;
+        font-size: clamp(1rem, 0.9423rem + 0.2564vw, 1.25rem);
+    }
+}
+.mySwiper {
+  overflow: hidden;
+  
+  // Самый простой вариант:
+  // padding: 0 4.5% !important;
+  max-width: 1510px;
+  margin: 40px auto;
+
+  @media (max-width: 1510px) {
+    padding: 0 4.5% !important;
+  }
+  @media (max-width: 992px) {
+    margin: 0px auto;
+  }
+  
+  // Для больших экранов добавьте:
+  // @media (min-width: 1510px) {
+  //   $padding: calc((100vw - 1510px) / 2);
+  //   padding: 0 #{$padding} !important;
+  // }
+
+
+  
+  .swiper-slide {
+    width: auto !important;
+  }
+}

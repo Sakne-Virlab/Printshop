@@ -49,8 +49,8 @@ export default function Header({ data }: { data: HeaderData }) {
         const delta = y - lastYRef.current;
 
         const START_HIDE_AFTER = 120;
-        const HIDE_DELTA = 6;
-        const SHOW_DELTA = -5;
+        const HIDE_DELTA = 10;
+        const SHOW_DELTA = -10;
 
         let nextHidden = hiddenRef.current;
 

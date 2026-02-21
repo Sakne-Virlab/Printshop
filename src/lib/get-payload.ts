@@ -1,4 +1,6 @@
-// Защита от импорта на клиенте - этот файл должен использоваться только на сервере
+// src/lib/get-payload.ts
+
+// Защита от импорта на клиенте — этот файл должен использоваться только на сервере
 if (typeof window !== 'undefined') {
   throw new Error('Этот модуль может быть импортирован только на сервере!')
 }
@@ -13,9 +15,42 @@ const isServer = typeof window === 'undefined'
 let payloadInstance: Awaited<ReturnType<typeof getPayloadClient>> | null = null
 
 /**
+ * Тип для mock-объекта Payload (совместим с реальным API)
+ */
+type MockPayload = {
+  find: (args: any) => Promise<{ docs: any[]; totalDocs: number; page: number; totalPages: number }>
+  findGlobal: (args: any) => Promise<Record<string, any>>
+  findByID: (args: any) => Promise<any>
+  findGlobalByID: (args: any) => Promise<any>
+  create: (args: any) => Promise<any>
+  update: (args: any) => Promise<any>
+  delete: (args: any) => Promise<any>
+  updateGlobal: (args: any) => Promise<any>
+}
+
+/**
+ * Создаёт mock-объект Payload для использования при сборке без БД
+ */
+function createMockPayload(): MockPayload {
+  const emptyResponse = { docs: [], totalDocs: 0, page: 1, totalPages: 1 }
+  
+  return {
+    find: async () => emptyResponse,
+    findGlobal: async () => ({}),
+    findByID: async () => null,
+    findGlobalByID: async () => null,
+    create: async () => null,
+    update: async () => null,
+    delete: async () => null,
+    updateGlobal: async () => null,
+  }
+}
+
+/**
  * Получение экземпляра Payload для серверных компонентов Next.js
- * Использует кэшированный экземпляр для оптимизации
- * Для публичных страниц (без аутентификации) не требуется контекст запроса
+ * 
+ * 🛡️ Если DATABASE_URL не задан — возвращает mock-объект, чтобы сборка не падала
+ * ✅ Использует кэшированный экземпляр для оптимизации
  * 
  * ⚠️ ВАЖНО: Эта функция должна вызываться ТОЛЬКО на сервере!
  */
@@ -25,91 +60,80 @@ export async function getPayload() {
     throw new Error('getPayload() может быть вызван только на сервере!')
   }
 
-  // Если экземпляр уже создан, возвращаем его
+  // 🛡️ Если нет DATABASE_URL — возвращаем mock, чтобы сборка в Docker не падала
+  if (!process.env.DATABASE_URL) {
+    console.warn('⚠️ DATABASE_URL not set — returning mock payload for build')
+    return createMockPayload() as any
+  }
+
+  // Если экземпляр уже создан и кэширован — возвращаем его
   if (payloadInstance) {
     return payloadInstance
   }
 
-  // Создаем новый экземпляр без контекста запроса (для публичных страниц)
-  payloadInstance = await getPayloadClient({
-    config,
-  })
-
-  return payloadInstance
+  try {
+    // Создаем новый экземпляр с реальной конфигурацией
+    payloadInstance = await getPayloadClient({
+      config,
+    })
+    return payloadInstance
+  } catch (error) {
+    // 🛡️ Если инициализация упала (например, БД недоступна) — возвращаем mock
+    console.warn('⚠️ Failed to initialize Payload, falling back to mock:', error)
+    return createMockPayload() as any
+  }
 }
 
 /**
  * Глубокая очистка данных от несериализуемых свойств
- * Рекурсивно удаляет функции, undefined, символы и другие несериализуемые значения
  */
 function deepClean(obj: any, seen = new WeakSet()): any {
-  // Обработка примитивов и null
-  if (obj === null || obj === undefined) {
-    return null;
-  }
-  
-  if (typeof obj !== 'object') {
-    return obj;
-  }
+  if (obj === null || obj === undefined) return null
+  if (typeof obj !== 'object') return obj
   
   // Предотвращение циклических ссылок
-  if (seen.has(obj)) {
-    return null;
-  }
-  seen.add(obj);
+  if (seen.has(obj)) return null
+  seen.add(obj)
   
-  // Обработка массивов
   if (Array.isArray(obj)) {
-    return obj.map(item => deepClean(item, seen)).filter(item => item !== undefined);
+    return obj.map(item => deepClean(item, seen)).filter(item => item !== undefined)
   }
   
-  // Обработка объектов
-  const cleaned: any = {};
+  const cleaned: any = {}
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
-      const value = obj[key];
+      const value = obj[key]
       
       // Пропускаем функции, символы и undefined
-      if (typeof value === 'function' || typeof value === 'symbol') {
-        continue;
-      }
+      if (typeof value === 'function' || typeof value === 'symbol') continue
       
-      // Пропускаем специальные свойства Payload, которые могут содержать auth
-      if (key === 'auth' || key === '_auth' || key === '__auth' || key === 'user') {
-        continue;
-      }
+      // Пропускаем специальные свойства Payload с auth-контекстом
+      if (key === 'auth' || key === '_auth' || key === '__auth' || key === 'user') continue
       
-      // Рекурсивно очищаем вложенные объекты
-      const cleanedValue = deepClean(value, seen);
+      const cleanedValue = deepClean(value, seen)
       if (cleanedValue !== undefined) {
-        cleaned[key] = cleanedValue;
+        cleaned[key] = cleanedValue
       }
     }
   }
   
-  return cleaned;
+  return cleaned
 }
 
 /**
  * Сериализация данных для передачи на клиент
  * Убирает несериализуемые свойства (функции, классы, auth контекст и т.д.)
- * Это предотвращает ошибки при гидратации React на клиенте
  */
 export function serializePayloadData<T>(data: T): T {
   try {
-    // Сначала глубоко очищаем данные
-    const cleaned = deepClean(data);
-    // Затем сериализуем через JSON
-    return JSON.parse(JSON.stringify(cleaned)) as T;
+    const cleaned = deepClean(data)
+    return JSON.parse(JSON.stringify(cleaned)) as T
   } catch (error) {
-    console.error('Ошибка сериализации данных Payload:', error);
-    // Если сериализация не удалась, пытаемся вернуть хотя бы очищенные данные
+    console.error('Ошибка сериализации данных Payload:', error)
     try {
-      return deepClean(data) as T;
+      return deepClean(data) as T
     } catch {
-      // В крайнем случае возвращаем пустой объект
-      return {} as T;
+      return {} as T
     }
   }
 }
-

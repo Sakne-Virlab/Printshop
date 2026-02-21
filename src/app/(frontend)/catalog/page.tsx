@@ -61,7 +61,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export const Card = ({ category, bgUrl, url }: {
+const Card = ({ category, bgUrl, url }: {
   category: string;
   bgUrl?: string;
   url: string;

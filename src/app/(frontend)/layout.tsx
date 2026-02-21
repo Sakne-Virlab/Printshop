@@ -42,14 +42,31 @@ export async function generateMetadata(): Promise<Metadata> {
   const yandex = layout?.verification?.yandex || undefined
 
   return {
-    title: "Payload Blank Template",
-    description: "A blank template using Payload in a Next.js app.",
-
+    title: "Ваша типография",
+    description: "Типография",
     verification: { google, yandex },
 
-    icons:{ icon: [{ url: "/api/media/file/favicon.svg", type: "image/svg+xml" }],}
+    // Добавляем иконки
+    icons: {
+      icon: [
+        { url: '/favicon/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+        { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
+      ],
+      shortcut: '/favicon/favicon.ico',
+      apple: [
+        { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      ],
+    },
+
+    manifest: '/site.webmanifest',
+
+    // Настройки для Apple (название приложения)
+    appleWebApp: {
+      title: 'vasha-tipografiya',
+    },
   }
 }
+
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
@@ -74,6 +91,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="ru">
+      
       <body className={`${montserrat.variable} ${unbounded.variable} ${manrope.variable}`}>
         <Header data={serializedHeader as any} />
         <main>{children}</main>

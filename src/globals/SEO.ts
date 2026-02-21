@@ -14,13 +14,6 @@ export const SEOGlobal: GlobalConfig = {
       type: 'group',
       fields: [
             {
-            name: 'favicon',
-            label: 'Favicon (назовите файл favicon.svg)',
-            type: 'upload',
-            relationTo: 'media',
-            required: false,
-            },
-            {
             name: 'verification',
             label: 'Verification',
             type: 'group',

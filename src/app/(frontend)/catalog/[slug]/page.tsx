@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import styles from "./page.module.scss"
 import MarkdownBlock from '../../components/common/MarkdownBlock/MarkdownBlock'
 import Reviews from '../../components/common/Reviews/Reviews'
+import Form from '../../components/common/Form/Form'
 import Contacts from '../../components/mainPage/Contacts/Contacts'
 
 interface PageProps {
@@ -123,7 +124,7 @@ export default async function Page({ params }: PageProps) {
             <h2>{ReviewsTitle}</h2>
             <Reviews steps={reviews}/>
         </div>
-        
+        <Form/>
         <Contacts data={serializedContacts as any} />
         
     </div>

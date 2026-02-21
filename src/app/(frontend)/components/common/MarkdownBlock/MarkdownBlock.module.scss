@@ -1,0 +1,9 @@
+.markdownBlock{
+    p, li{
+        font-size: clamp(1rem, 0.9423rem + 0.2564vw, 1.25rem);
+    }  
+
+    h4{
+        font-size: clamp(1.0625rem, 0.9615rem + 0.4487vw, 1.5rem);
+    }
+}

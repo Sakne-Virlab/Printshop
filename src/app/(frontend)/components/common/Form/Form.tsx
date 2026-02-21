@@ -48,7 +48,7 @@ export default function Form() {
   }
 
   return (
-    <div className={`${styles.askQuestion} container`}>
+    <div className="container">
       <h2>Задать вопрос?</h2>
       
       <form onSubmit={handleSubmit} className={styles.form}>
